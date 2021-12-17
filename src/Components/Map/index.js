@@ -6,10 +6,9 @@ export default function Map(props) {
 
     const MapEl = useRef(null)
     const locs = [
-        "-1.0850, 36.8259", "-1.0920, 36.9279", "-1.0903, 36.6239",
-        "-1.1903, 36.6239", "1.1906, 36.6239", "-1.2593, 36.6239",
-        "-1.0650, 36.8459", "-2.0920, 36.9279", "-1.2213, 36.7312",
-        "-1.1203, 36.6730", "1.3006, 36.8939", "-2.0, 35.0000"
+        "-1.281660433785, 36.815085333251", "-1.282990476278, 36.823689859771",
+        "-1.282690144162, 36.825513761901", "-1.288128295211, 36.828823607826",
+        "-1.282443442755, 36.831012290382", "-1.282164562875, 36.827042621040"
     ]
     useEffect(() => {
         let view;
@@ -22,7 +21,8 @@ export default function Map(props) {
             "esri/geometry/Point",
             "esri/symbols/WebStyleSymbol",
             "esri/Graphic",
-            "esri/PopupTemplate"
+            "esri/PopupTemplate",
+            "esri/widgets/Zoom"
         ], {
             css: true
         }).then(
@@ -34,37 +34,50 @@ export default function Map(props) {
                 Point,
                 WebStyleSymbol,
                 Graphic,
-                PopupTemplate
+                PopupTemplate,
+                Zoom
             ]) => {
 
                 esriConfig.apiKey = ApiKey
                 const map = new ArcGISMap({
-                    basemap: "osm-streets"
+                    basemap: "osm-streets",
                 })
+
 
                 let view = new MapView({
                     container: MapEl.current,
                     map: map,
-                    center: [36.8259, -1.0850],
-                    zoom: 9
+                    center: [36.83, -1.282],
+                    zoom: 13,
+                    ui: {
+                        components: [ "attribution" ] //hide the default zoom slider
+                    }
+                })
+
+                let zoom = new Zoom({
+                    view: view
+                });
+
+                view.ui.add(zoom, {
+                    'position': 'bottom-right'
                 })
 
                 for (let i = 0; i < locs.length; i++) {
                     
                     const point = new Point(parseFloat(locs[i].split(",")[1]), parseFloat(locs[i].split(",")[0]))
         
-                    // let symbol = {
-                    //     type: 'simple-marker',
-                    //     color : [255, 0,0],
-                    //     outline: {
-                    //         color: [255, 255, 255], // white
-                    //         width: 1
-                    //     }
-                    // }
-                    const symbol = new WebStyleSymbol({
-                        name: "parking",
-                        styleName: "Esri2DPointSymbolsStyle"
-                      });
+                    let symbol = {
+                        type: 'simple-marker',
+                        color : "red",
+                        outline: {
+                            color: "white", // white
+                            width: 1
+                        }
+                    }
+                    // const symbol = new WebStyleSymbol({
+                    //     name: "parking",
+                    //     styleName: "Esri2DPointSymbolsStyle"
+                    //   });
             
                     var attributes = {
                         Name: "My point", // The name of the
@@ -164,6 +177,6 @@ export default function Map(props) {
         }
     })
     return (
-        <div style={{width: '100%', height: '550px'}} ref={MapEl} />
+        <div style={{width: '100%', height: '100vh'}} ref={MapEl} />
     )
 }

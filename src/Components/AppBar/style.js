@@ -5,13 +5,28 @@ import InputBase from '@mui/material/InputBase';
 
 export const useStyles = makeStyles((theme) => createStyles({
 
+  container: {
+    width: '400px',
+    position: 'absolute',
+    backgroundColor: '#fff !important', 
+    zIndex : 1,
+    margin: 10,
+    [theme.breakpoints.down('sm')]: {
+       width: '100%',
+       margin: '0'
+    },
+  },
   appBar: {
     backgroundColor: '#fff !important',
     color: '#000 !important',
+    borderRadius: '5px !important',
+    [theme.breakpoints.down('sm')]: {
+      borderRadius: '0 !important',
+    },
   }, 
   searchBar: {
     backgroundColor: '#f2f2f2 !important',
-    width: '40% !important',
+    width: '75% !important',
 
     // [theme.breakpoints.down('sm')]: {
     //   width: '100% !important',
