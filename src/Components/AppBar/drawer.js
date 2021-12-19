@@ -9,7 +9,8 @@ import ListItemText from '@mui/material/ListItemText';
 import { Grid, IconButton, Link, Typography } from '@mui/material';
 import { AppName } from '../../util/Constants'
 import { useStyles } from './style.js'
-import { ArrowBackIosNew, Info, PhoneForwarded, Timeline } from '@mui/icons-material';
+import { AdminPanelSettings, ArrowBackIosNew, Info, Login, PhoneForwarded, Timeline } from '@mui/icons-material';
+import NewParkingModal from '../NewParkingModal';
 
 export default function TemporaryDrawer(props) {
 
@@ -21,6 +22,11 @@ export default function TemporaryDrawer(props) {
         url: '/',
         icon: <Timeline />
       },
+      // {
+      //   name: 'New Parking',
+      //   url: '/new-parking',
+      //   icon: <LocalParking />
+      // },
       {
         name: 'About Us',
         url: '/about',
@@ -30,7 +36,17 @@ export default function TemporaryDrawer(props) {
         name: 'Contact',
         url: '/contact',
         icon: <PhoneForwarded />
-      }
+      },
+      {
+        name: 'Login',
+        url: '/auth/login',
+        icon: <Login />
+      },
+      {
+        name: 'Sign Up',
+        url: '/auth/signup',
+        icon: <AdminPanelSettings />
+      },
     ]
 
   const list = () => (
@@ -97,7 +113,10 @@ export default function TemporaryDrawer(props) {
             onClose={toggleDrawer(false)}
           >
             {list()}
-          </Drawer>
+            <Divider />
+            <NewParkingModal /> 
+      </Drawer>
+      
     </div>
   );
 }
