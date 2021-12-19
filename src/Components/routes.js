@@ -2,6 +2,10 @@
 import Home from '../Views/Home'
 import PageNotFound from '../Views/PageNotFound'
 import MainTheme from '../Themes/MainTheme'
+import AuthTheme from '../Themes/AuthTheme'
+import NewParking from '../Views/NewParking';
+import Login from '../Views/Login';
+import SignUp from '../Views/SignUp';
 import { Navigate } from 'react-router';
 
 export const routes = ()=> [
@@ -12,6 +16,18 @@ export const routes = ()=> [
       element: <MainTheme />,
       children: [
         { path: '/', element: <Home /> },
+        { path: '/home', element: <Home /> },
+        { path: '/new-parking', element: <NewParking /> },
+        { path: '*', element: <Navigate to="/404" replace /> }
+      ]
+    },
+    {
+      path: '/auth',
+      element: <AuthTheme />,
+      children: [
+        { path: '/auth/login', element: <Login /> },
+        { path: '/auth/signup', element: <SignUp /> },
+        { path: '*', element: <Navigate to="/404" replace /> }
       ]
     },
     {
