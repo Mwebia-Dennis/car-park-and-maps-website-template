@@ -8,12 +8,12 @@ import Login from '../Views/Login';
 import SignUp from '../Views/SignUp';
 import { Navigate } from 'react-router';
 
-export const routes = ()=> [
+export const routes = (isLoggedIn)=> [
     // A route object has the same properties as a <Route>
     // element. The `children` is just an array of child routes.
     {
       path: '/',
-      element: <MainTheme />,
+      element: isLoggedIn?<MainTheme />:<Navigate to="/auth/login" replace />,
       children: [
         { path: '/', element: <Home /> },
         { path: '/home', element: <Home /> },
@@ -23,7 +23,7 @@ export const routes = ()=> [
     },
     {
       path: '/auth',
-      element: <AuthTheme />,
+      element: isLoggedIn?<Navigate to="/" replace />:<AuthTheme />,
       children: [
         { path: '/auth/login', element: <Login /> },
         { path: '/auth/signup', element: <SignUp /> },
