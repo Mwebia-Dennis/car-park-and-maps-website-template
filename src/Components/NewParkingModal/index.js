@@ -45,7 +45,8 @@ export default function NewParkingModal() {
   },
   {
       name: "CAPACITY_OF_PARK",
-      label: "CAPACITY_OF_PARK"
+      label: "CAPACITY_OF_PARK", 
+      type: "number",
   },
   {
       name: "WORKING_TIME",
@@ -57,11 +58,13 @@ export default function NewParkingModal() {
   },
   {
       name: "LONGITUDE",
-      label: "LONGITUDE"
+      label: "LONGITUDE", 
+      type: "number",
   },
   {
       name: "LATITUDE",
-      label: "LATITUDE"
+      label: "LATITUDE", 
+      type: "number",
   },
   ]
 
@@ -139,6 +142,7 @@ function showSnackBar(msg, variant = 'info'){
                 Header = {""}
                 SubHeader = {""}
                 handleData = {handleNewData}
+                loading = {carParkState.loading}
 
             />
         </DialogContent>

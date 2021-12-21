@@ -23,7 +23,7 @@ export const routes = (isLoggedIn)=> [
     },
     {
       path: '/auth',
-      element: isLoggedIn?<Navigate to="/" replace />:<AuthTheme />,
+      element: <AuthTheme />,
       children: [
         { path: '/auth/login', element: <Login /> },
         { path: '/auth/signup', element: <SignUp /> },

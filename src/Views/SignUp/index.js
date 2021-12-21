@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Close } from '@mui/icons-material';
 import { CLEAR_ERROR, CLEAR_MESSAGE } from '../../Store/reducers/auth/auth.types';
-import { IconButton } from '@mui/material';
+import { IconButton, Link, Typography } from '@mui/material';
 
 export default function SignUp() {
 
@@ -24,11 +24,13 @@ export default function SignUp() {
         },
         {
             name: "EMAIL",
-            label: "EMAIL"
+            label: "EMAIL",
+            type: "email"
         },
         {
             name: "PASSWORD",
-            label: "PASSWORD"
+            label: "PASSWORD", 
+            type: "password",
         },
     ]
 
@@ -83,8 +85,15 @@ export default function SignUp() {
                 Header = {"Become A Member"}
                 SubHeader = {"Sign Up to continue"}
                 handleData = {handleSignUp}
+                loading = {authState.loading}
 
             />
+            <div>
+                <Typography component="p" style={{textAlign: 'center'}}>Already A member?</Typography>
+                <Typography component="p" style={{textAlign: 'center'}}>
+                    <Link href="/auth/login">Login</Link>
+                </Typography>
+            </div>
         </div>
      )
 }

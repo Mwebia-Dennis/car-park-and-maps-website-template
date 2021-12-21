@@ -4,15 +4,13 @@ import { ApiKey } from '../../util/Constants';
 
 export default function Map(props) {
 
-    const MapEl = useRef(null)
-    const locs = [
-        "-1.281660433785, 36.815085333251", "-1.282990476278, 36.823689859771",
-        "-1.282690144162, 36.825513761901", "-1.288128295211, 36.828823607826",
-        "-1.282443442755, 36.831012290382", "-1.282164562875, 36.827042621040"
-    ]
+    const { locs } = props
+    const MapEl = useRef(null)    
+
     useEffect(() => {
         let view;
 
+        console.log(locs)
         loadModules([
             "esri/config",
             "esri/widgets/Popup",
@@ -47,7 +45,7 @@ export default function Map(props) {
                 let view = new MapView({
                     container: MapEl.current,
                     map: map,
-                    center: [36.83, -1.282],
+                    center: [28.9778, 41.0079],
                     zoom: 13,
                     ui: {
                         components: [ "attribution" ] //hide the default zoom slider
@@ -64,7 +62,7 @@ export default function Map(props) {
 
                 for (let i = 0; i < locs.length; i++) {
                     
-                    const point = new Point(parseFloat(locs[i].split(",")[1]), parseFloat(locs[i].split(",")[0]))
+                    const point = new Point(parseFloat(locs[i]["longitude"]), parseFloat(locs[i]["latitude"]))
         
                     let symbol = {
                         type: 'simple-marker',
@@ -124,7 +122,9 @@ export default function Map(props) {
                             "<div><img src='https://www.w3schools.com/images/w3schools_green.jpg' height='15px' width='15px' align='center'/> point</div>",
                             location: event.mapPoint,
                             content:
-                            "<p> latitude: " +
+                            "<p> name: "+
+                            locs[i]["location_name"]+
+                            "</p> <p> latitude: " +
                             event.mapPoint.latitude.toFixed(12) +
                             " </p> <p> lognitude " +
                             event.mapPoint.longitude.toFixed(12) +
@@ -176,6 +176,7 @@ export default function Map(props) {
             }  
         }
     })
+
     return (
         <div style={{width: '100%', height: '100vh'}} ref={MapEl} />
     )

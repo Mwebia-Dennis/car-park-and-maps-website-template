@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Close } from '@mui/icons-material';
 import { CLEAR_ERROR, CLEAR_MESSAGE } from '../../Store/reducers/auth/auth.types';
-import { IconButton } from '@mui/material';
+import { IconButton, Link, Typography } from '@mui/material';
 
 export default function Login() {
 
@@ -19,11 +19,13 @@ export default function Login() {
     const Fields = [
         {
             name: "EMAIL",
-            label: "EMAIL"
+            label: "EMAIL", 
+            type: "email",
         },
         {
             name: "PASSWORD",
-            label: "PASSWORD"
+            label: "PASSWORD", 
+            type: "password",
         },
     ]
 
@@ -77,7 +79,15 @@ export default function Login() {
                 Header = {"Welcome Back"}
                 SubHeader = {"Login to continue"}
                 handleData = {handleLogin}
+                loading = {authState.loading}
             />
+
+            <div>
+                <Typography component="p" style={{textAlign: 'center'}}>Not A member Yet?</Typography>
+                <Typography component="p" style={{textAlign: 'center'}}>
+                    <Link href="/auth/signup">Sign Up</Link>
+                </Typography>
+            </div>
         </div>
      )
 }

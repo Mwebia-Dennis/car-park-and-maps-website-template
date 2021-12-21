@@ -55,8 +55,7 @@ export const setNewCarPark = (newData, user_id, navigate) => (dispatch) => {
             type: SET_CAR_PARK_MESSAGE,
             payload: res.data.message
         })
-
-        navigate('/')
+        dispatch(getAllCarParks())
 
     })
     .catch((error)=> {
