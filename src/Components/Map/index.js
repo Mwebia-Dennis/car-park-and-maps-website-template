@@ -10,7 +10,6 @@ export default function Map(props) {
     useEffect(() => {
         let view;
 
-        console.log(locs)
         loadModules([
             "esri/config",
             "esri/widgets/Popup",
