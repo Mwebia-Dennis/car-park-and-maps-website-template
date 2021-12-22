@@ -3,14 +3,47 @@ import MainForm from '../../Components/Forms/MainForm'
 
 export default function NewParking() {
 
-    const Fields = [
-        "PARK_NAME","LOCATION_NAME", "PARK_TYPE_ID", "PARK_TYPE_DESC", "CAPACITY_OF_PARK",
-        "WORKING_TIME", "COUNTY_NAME", "LONGITUDE", "LATITUDE"
+    const _Fields = [
+        {
+            name: "PARK_NAME",
+            label: "PARK_NAME"
+        },
+        {
+            name: "LOCATION_NAME",
+            label: "LOCATION_NAME"
+        },
+        {
+            name: "PARK_TYPE_ID",
+            label: "PARK_TYPE_ID"
+        },
+        {
+            name: "PARK_TYPE_DESC",
+            label: "PARK_TYPE_DESC"
+        },
+        {
+            name: "CAPACITY_OF_PARK",
+            label: "CAPACITY_OF_PARK"
+        },
+        {
+            name: "WORKING_TIME",
+            label: "WORKING_TIME"
+        },
+        {
+            name: "COUNTY_NAME",
+            label: "COUNTY_NAME"
+        },
+        {
+            name: "LONGITUDE",
+            label: "LONGITUDE"
+        },
+        {
+            name: "LATITUDE",
+            label: "LATITUDE"
+        },
     ]
-    
     return ( 
         <MainForm 
-            Fields = {Fields}
+            Fields = {_Fields}
             Header = {"Add New Parking"}
             SubHeader = {"All fields are required"}
 
