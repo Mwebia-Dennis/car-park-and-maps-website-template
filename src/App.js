@@ -14,7 +14,8 @@ function App() {
   const dispatch = useDispatch()
 
   const authReducer = useSelector((state) => state.authReducer)
-  axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
+  // axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
+  axios.defaults.baseURL = 'https://ipark-api.oguzhansenyigit.com/api/'
   const element = useRoutes(routes(authReducer.authenticated))
 
   useEffect(() => {

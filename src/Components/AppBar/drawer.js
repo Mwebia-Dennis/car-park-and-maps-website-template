@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Grid, IconButton, Link, Typography } from '@mui/material';
 import { AppName } from '../../util/Constants'
 import { useStyles } from './style.js'
-import { ArrowBackIosNew, Info, PhoneForwarded, Timeline } from '@mui/icons-material';
+import { ArrowBackIosNew, Timeline } from '@mui/icons-material';
 import NewParkingModal from '../NewParkingModal';
 
 export default function TemporaryDrawer(props) {
