@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import { loadModules } from "esri-loader";
-import { ApiKey } from '../../util/Constants';
+import { ApiKey, MapInstance, translate } from '../../util/Constants';
 
 export default function Map(props) {
 
     const { locs } = props
-    const MapEl = useRef(null)    
+    const MapEl = useRef(null)
+    
 
     useEffect(() => {
         let view;
@@ -44,8 +45,8 @@ export default function Map(props) {
                 let view = new MapView({
                     container: MapEl.current,
                     map: map,
-                    center: [28.9778, 41.0079],
-                    zoom: 13,
+                    center: [28.9878, 41.0488],
+                    zoom: 12,
                     ui: {
                         components: [ "attribution" ] //hide the default zoom slider
                     }
@@ -87,22 +88,22 @@ export default function Map(props) {
                     //     id: "edit-btn",
                     //     className: 'esri-icon-edit'
                     // }
-                    const DeleteAction = {
-                        title: "Delete",
-                        id: "delete-btn",
-                        className: "esri-icon-trash"
-                    }
+                    // const DeleteAction = {
+                    //     title: "Delete",
+                    //     id: "delete-btn",
+                    //     className: "esri-icon-trash"
+                    // }
                     // Create popup template
                     let popupContent = "<table>"
                     for (let key in locs[i]) {
                         if (locs[i].hasOwnProperty(key)) {
                             if(key !== 'id' && key !== 'user_id') {
                                 if(key === 'added_by'){
-                                    popupContent += "<tr><td><strong>"+key+"</strong></td><td> "+locs[i][key]['name'] +"</td></tr>"
+                                    popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+locs[i][key]['name'] +"</td></tr>"
                                 }else if (key === 'created_at' || key === 'updated_at') {
-                                    popupContent += "<tr><td><strong>"+key+"</strong></td><td> "+new Date(locs[i][key]).toString() +"</td></tr>"
+                                    popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+new Date(locs[i][key]).toString() +"</td></tr>"
                                 }else {
-                                    popupContent += "<tr><td><strong>"+key+"</strong></td><td> "+locs[i][key] +"</td></tr>"
+                                    popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+locs[i][key] +"</td></tr>"
                                 }
                             }
                         }
@@ -110,7 +111,7 @@ export default function Map(props) {
                     const popupTemplate = new PopupTemplate({
                         title: "{Name}",
                         content: popupContent + "</table>",
-                        actions: [DeleteAction]
+                        // actions: [DeleteAction]
                     });
                     
             
@@ -130,7 +131,7 @@ export default function Map(props) {
                         if(event.action.id === "edit-btn"){
                             console.log("edit-btn")
                         }else if(event.action.id === "delete-btn"){
-                            console.log("delete-btn")
+                            // handleDelete(locs[i]['id'])
                         }
                     });
 
@@ -140,6 +141,7 @@ export default function Map(props) {
             
                 }
                 
+                MapInstance.push(view)
 
             }
         )

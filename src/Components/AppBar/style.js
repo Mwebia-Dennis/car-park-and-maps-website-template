@@ -32,6 +32,13 @@ export const useStyles = makeStyles((theme) => createStyles({
     //   width: '100% !important',
     // },
   },
+  searchInput: {
+    width: '80%',
+
+    [theme.breakpoints.down('sm')]: {
+      width: '70%',
+    },
+  },
   
   drawerLogoBox: {
     padding: '12px 0 12px 10px',

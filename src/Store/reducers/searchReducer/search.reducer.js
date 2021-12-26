@@ -1,31 +1,28 @@
 
 import {
     CLEAR_CAR_PARK_ERROR,
-    CLEAR_CAR_PARK_MESSAGE,
     LOADING_CAR_PARK_DATA,
-    SET_CAR_PARK_DATA,
+    SET_SEARCH_CAR_PARK_DATA,
     SET_CAR_PARK_ERROR,
-    SET_CAR_PARK_MESSAGE,
-} from './carPark.types'
+} from './search.types'
 
 
 const initialState = {
     loading: false,
-    data: {},
+    searchData: {},
     errors: null,
     message: null,
   };
-export const carParkReducer = (state = initialState, action)=> {
+export const searchReducer = (state = initialState, action)=> {
 
     switch (action.type) {
-        case SET_CAR_PARK_DATA:
+        case SET_SEARCH_CAR_PARK_DATA:
             return {
                 ...state,
-                data: action.payload,
+                searchData: action.payload,
                 loading: false,
             };
-
-                
+        
         case CLEAR_CAR_PARK_ERROR:
             return {
                 ...state,
@@ -48,20 +45,6 @@ export const carParkReducer = (state = initialState, action)=> {
                 error: action.payload,
                 loading: false,
             };
-
-        case SET_CAR_PARK_MESSAGE:
-            return {
-                ...state,
-                message: action.payload,
-                loading: false,
-            };
-        case CLEAR_CAR_PARK_MESSAGE:
-            return {
-                ...state,
-                message: null,
-                loading: false,
-            };
-
 
         
         default:
