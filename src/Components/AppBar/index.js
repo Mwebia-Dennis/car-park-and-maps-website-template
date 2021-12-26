@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,22 +9,27 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { StyledInputBase, SearchIconWrapper, Search, useStyles } from './style.js'
+import { StyledInputBase,  Search, useStyles } from './style.js'
 import Drawer from './drawer'
 import { LogoutRounded } from '@mui/icons-material';
 import { logOut } from '../../Store/reducers/auth/auth.actions';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import DropDown from './dropDown.js';
+import { searchCarParks } from '../../Store/reducers/searchReducer/search.actions.js';
+import { CircularProgress } from '@mui/material';
 
 
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles()
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [query, setQuery] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const searchState = useSelector((state) => state.searchReducer)
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -57,6 +62,23 @@ export default function PrimarySearchAppBar() {
   const handleLogout = ()=>{
     dispatch(logOut(navigate))
   }
+
+  const handleSearchChange = (e)=>{
+
+    if(e.target.value !== '') {
+      setQuery(e.target.value.toLowerCase())
+    }
+
+  }
+
+  const handleSearchSubmit = (e)=>{
+
+    if(query !== '') {
+      dispatch(searchCarParks(query))
+    }
+
+  }
+
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -137,14 +159,18 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Search  className={ classes.searchBar }>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
+          <Search  className={ classes.searchBar } onChange={handleSearchChange} >
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              className={classes.searchInput}
             />
+            <IconButton onClick={handleSearchSubmit} size="small" style={{margin: 2,}}  aria-label="search" >
+              {
+                searchState.loading?<CircularProgress size={23} />:<SearchIcon />
+              }
+              
+            </IconButton>
           </Search>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
@@ -177,6 +203,7 @@ export default function PrimarySearchAppBar() {
       <Drawer open={drawerOpen} toggleDrawer = { toggleDrawer } />
       {renderMobileMenu}
       {renderMenu}
+      <DropDown data={("data" in searchState.searchData)?searchState.searchData.data:[]} />
     </Box>
   );
 }

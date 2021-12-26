@@ -94,35 +94,8 @@ export const updateCarPark = (newData, user_id,car_park_id) => (dispatch) => {
 }
 
 
-
-// export const searchCarParks = (data,sort_by = 'created_at', page = 1, perPage = 100) => (dispatch) => {
-
-//     setAuthorizationHeader()
-//     dispatch({ type: LOADING_CAR_PARK_DATA })
-//     axios.post('car-parks-search?per_page='+perPage+'&page='+page+'&sort_by='+sort_by, data)
-//     .then((res)=>{
-        
-//         dispatch({ type: CLEAR_CAR_PARK_ERROR})
-//         dispatch({
-//             type: SET_CAR_PARK_DATA,
-//             payload: res.data
-//         })
-
-
-//     })
-//     .catch((error)=> {
-        
-//         dispatch({
-//             type: SET_CAR_PARK_ERROR,
-//             payload: error.response.data
-//         })
-//     })
-
-// }
-
-
 export const deleteCarPark = (user_id, car_park_id) => (dispatch) => {
-
+    console.log("del")
     setAuthorizationHeader()
     dispatch({ type: LOADING_CAR_PARK_DATA })
     axios.delete('users/'+parseInt(user_id)+'/car-park/'+parseInt(car_park_id))
@@ -138,7 +111,6 @@ export const deleteCarPark = (user_id, car_park_id) => (dispatch) => {
 
     })
     .catch((error)=> {
-        
         dispatch({
             type: SET_CAR_PARK_ERROR,
             payload: error.response.data
