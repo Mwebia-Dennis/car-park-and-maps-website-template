@@ -6,8 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useDispatch,useSelector } from 'react-redux';
-import { getAllCarParks } from '../../Store/reducers/carPark/carPark.actions';
-import { CircularProgress, Grid } from '@mui/material';
+import { deleteCarPark, getAllCarParks } from '../../Store/reducers/carPark/carPark.actions';
+import { Button, CircularProgress, Grid } from '@mui/material';
 import { getTableHeaders } from '../../util/Constants';
 import { styled } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
@@ -16,6 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useStyles } from './style';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -23,11 +24,13 @@ function createData(name, calories, fat, carbs, protein) {
 
 export default function ParkListing() {
 
+    const classes = useStyles()
     const [sort, setSort] = useState(getTableHeaders()[0])
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const dispatch = useDispatch()
-    const carParkState = useSelector((state) => state.carParkReducer)    
+    const carParkState = useSelector((state) => state.carParkReducer)  
+    const authState = useSelector((state) => state.authReducer)  
     React.useEffect(() => {
         
         dispatch(getAllCarParks(sort, page, limit))
@@ -42,6 +45,12 @@ export default function ParkListing() {
     }
     const handlePageChange = (e, value)=>{
         setPage(value)
+    }
+
+    const handleDelete = (id)=>{
+        if("id" in authState.data) {
+            dispatch(deleteCarPark(authState.data.id, id))
+        }
     }
 
     const style= {
@@ -80,14 +89,14 @@ export default function ParkListing() {
                 <TableContainer  style={style} >
 
                     
-                    <div style={{padding: '90px', marginRight: '20px'}}>
+                    <div className={classes.container}>
 
                         <div style={{padding: '20px 0'}}>
                             <Grid container>
                                 <Grid item md={9}></Grid>
                                 <Grid item md={3}>
 
-                                    <FormControl>
+                                    <FormControl style={{marginRight: '20px',marginBottom: '20px',width: '140px'}}>
                                         <InputLabel id="demo-simple-select-label">Order By</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
@@ -102,7 +111,7 @@ export default function ParkListing() {
                                         </Select>
                                     </FormControl>
                                     
-                                    <FormControl style={{marginLeft: '20px'}}>
+                                    <FormControl style={{  width: '140px'}}>
                                         <InputLabel id="limit">Limit</InputLabel>
                                         <Select
                                             labelId="limit"
@@ -127,6 +136,8 @@ export default function ParkListing() {
                                         getTableHeaders().map(item=>
                                             <StyledTableCell key={item}>{item.toUpperCase()}</StyledTableCell>)
                                     }
+                                    
+                                    <StyledTableCell>{"eylem".toUpperCase()}</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -149,6 +160,7 @@ export default function ParkListing() {
                                     <TableCell align="right">{row.added_by.name}</TableCell>
                                     <TableCell align="right">{new Date(row.created_at).toString()}</TableCell>
                                     <TableCell align="right">{new Date(row.updated_at).toString()}</TableCell>
+                                    <TableCell align="right"><Button color="secondary" onClick={()=>handleDelete(row.id)}>silmek</Button>  </TableCell>
                                 </StyledTableRow >
                             )):<div>0 results found</div>}
                             </TableBody>
@@ -156,17 +168,19 @@ export default function ParkListing() {
                     </div>
 
                     
-                    <Grid container style={{marginBottom: 20}}>
-                        <Grid item xs={2}></Grid>
-                        <Grid xs={8}>
-                            <Stack spacing={2}>
-                                <Pagination count={10} page={page} onChange={handlePageChange} color="primary" />
-                            </Stack>
-                        </Grid>
-                    </Grid>
 
                 </TableContainer>)
             }
+
+            
+            <Grid container style={{marginBottom: 20, marginTop: 20}}>
+                <Grid item md={4}></Grid>
+                <Grid md={6}>
+                    <Stack spacing={2}>
+                        <Pagination count={10} page={page} onChange={handlePageChange} color="primary" />
+                    </Stack>
+                </Grid>
+            </Grid>
         </div>
         
     );
