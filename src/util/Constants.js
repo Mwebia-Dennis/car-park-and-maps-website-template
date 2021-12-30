@@ -59,14 +59,24 @@ const additionalInfo = [
 
 export const translate = (value) => {
 
-    const result = _Fields.filter(item=>item['label'] === value.toUpperCase())
-    const result2 = additionalInfo.filter(item=>item['label'] === value.toUpperCase())
+    const result = _Fields.filter(item=>item['name'] === value.toUpperCase())
+    const result2 = additionalInfo.filter(item=>item['name'] === value.toUpperCase())
     if(result.length > 0) {
-        return result[0]['name'].toLowerCase()
+        return result[0]['label'].toLowerCase()
     }else if(result2.length > 0) {
-        return result2[0]['name'].toLowerCase()
+        return result2[0]['label'].toLowerCase()
     }else {
         return value
     }
 
+}
+
+
+export const getTableHeaders = ()=> {
+    const headers = _Fields.map(item=>item.label.toLowerCase())
+    additionalInfo.forEach(item=>{
+        headers.push(item.label.toLowerCase())
+    })
+   
+    return headers
 }

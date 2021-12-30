@@ -16,7 +16,7 @@ import { logOut } from '../../Store/reducers/auth/auth.actions';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DropDown from './dropDown.js';
-import { searchCarParks } from '../../Store/reducers/searchReducer/search.actions.js';
+import { getAllCarParks, searchCarParks } from '../../Store/reducers/carPark/carPark.actions.js';
 import { CircularProgress } from '@mui/material';
 
 
@@ -29,7 +29,7 @@ export default function PrimarySearchAppBar() {
   const [query, setQuery] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const searchState = useSelector((state) => state.searchReducer)
+  const searchState = useSelector((state) => state.carParkReducer)
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -75,6 +75,8 @@ export default function PrimarySearchAppBar() {
 
     if(query !== '') {
       dispatch(searchCarParks(query))
+    }else {
+      dispatch(getAllCarParks())
     }
 
   }
@@ -203,7 +205,6 @@ export default function PrimarySearchAppBar() {
       <Drawer open={drawerOpen} toggleDrawer = { toggleDrawer } />
       {renderMobileMenu}
       {renderMenu}
-      <DropDown data={("data" in searchState.searchData)?searchState.searchData.data:[]} />
     </Box>
   );
 }

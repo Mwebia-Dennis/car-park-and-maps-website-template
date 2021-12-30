@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Grid, IconButton, Link, Typography } from '@mui/material';
 import { AppName } from '../../util/Constants'
 import { useStyles } from './style.js'
-import { ArrowBackIosNew, Timeline } from '@mui/icons-material';
+import { ArrowBackIosNew, LocalParking, Timeline } from '@mui/icons-material';
 import NewParkingModal from '../NewParkingModal';
 
 export default function TemporaryDrawer(props) {
@@ -22,11 +22,11 @@ export default function TemporaryDrawer(props) {
         url: '/',
         icon: <Timeline />
       },
-      // {
-      //   name: 'New Parking',
-      //   url: '/new-parking',
-      //   icon: <LocalParking />
-      // },
+      {
+        name: 'Car Park Listing',
+        url: '/park-listing',
+        icon: <LocalParking />
+      },
       // {
       //   name: 'About Us',
       //   url: '/about',
