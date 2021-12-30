@@ -7,6 +7,7 @@ import NewParking from '../Views/NewParking';
 import Login from '../Views/Login';
 import SignUp from '../Views/SignUp';
 import { Navigate } from 'react-router';
+import ParkListing from '../Views/parkListing';
 
 export const routes = (isLoggedIn)=> [
     // A route object has the same properties as a <Route>
@@ -18,6 +19,7 @@ export const routes = (isLoggedIn)=> [
         { path: '/', element: <Home /> },
         { path: '/home', element: <Home /> },
         { path: '/new-parking', element: <NewParking /> },
+        { path: '/park-listing', element: <ParkListing /> },
         { path: '*', element: <Navigate to="/404" replace /> }
       ]
     },
