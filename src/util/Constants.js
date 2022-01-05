@@ -1,5 +1,5 @@
 export const AppName = "İSPARK A.Ş"
-export const ApiKey = "AAPKa304e67b63ca459eaa83d08d97a22a30I01gAqMLIyeAkga5g48ytAteYG3E62Cv94ZkxfgCy8V1h8gs-fcF7b6g58yo0RHP"
+export const ApiKey = "AAPKf03585edaa874f4b827d507503c5fe7apR0MfnRTtTgWr4ufTnYGBIjhm3BkiBDBUaI9_hMUAXJDgBAtqOdNbmjPO6D8DVse"
 export const MapInstance = [];// will allow us to access map from a different component
 
 export const _Fields = [
