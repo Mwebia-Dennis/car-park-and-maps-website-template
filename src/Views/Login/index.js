@@ -19,19 +19,19 @@ export default function Login() {
     const Fields = [
         {
             name: "EMAIL",
-            label: "EMAIL", 
+            label: "e-posta", 
             type: "email",
         },
         {
             name: "PASSWORD",
-            label: "PASSWORD", 
+            label: "Şifre", 
             type: "password",
         },
     ]
 
     
     if(authState.message) {
-        showSnackBar(authState.message, 'success');
+        showSnackBar("başarılı Giriş", 'success');
         dispatch({ type: CLEAR_MESSAGE})
         navigate('/')
     }
@@ -76,16 +76,16 @@ export default function Login() {
         <div className={classes.container}>
             <MainForm 
                 Fields = {Fields}
-                Header = {"Welcome Back"}
-                SubHeader = {"Login to continue"}
+                Header = {"tekrar hoşgeldiniz".toUpperCase()}
+                SubHeader = {"Devam etmek için giriş yapın"}
                 handleData = {handleLogin}
                 loading = {authState.loading}
             />
 
             <div>
-                <Typography component="p" style={{textAlign: 'center'}}>Not A member Yet?</Typography>
+                <Typography component="p" style={{textAlign: 'center'}}>Üye değil misin?</Typography>
                 <Typography component="p" style={{textAlign: 'center'}}>
-                    <Link href="/auth/signup">Sign Up</Link>
+                    <Link href="/auth/signup">Kayıt ol</Link>
                 </Typography>
             </div>
         </div>

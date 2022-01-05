@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { LocalParking } from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
 import MainForm from '../Forms/MainForm'
 import DialogActions from '@mui/material/DialogActions';
 import { Button } from '@mui/material';
@@ -16,6 +16,7 @@ import { useSnackbar } from 'notistack';
 import { Close } from '@mui/icons-material';
 import { CLEAR_CAR_PARK_ERROR, CLEAR_CAR_PARK_MESSAGE } from '../../Store/reducers/carPark/carPark.types';
 import { IconButton } from '@mui/material';
+import { _Fields } from '../../util/Constants';
 
 export default function NewParkingModal() {
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -25,48 +26,6 @@ export default function NewParkingModal() {
   const carParkState = useSelector((state) => state.carParkReducer)
   const authState = useSelector((state) => state.authReducer)
 
-  const Fields = [
-    
-    {
-      name: "PARK_NAME",
-      label: "PARK_NAME"
-  },
-  {
-      name: "LOCATION_NAME",
-      label: "LOCATION_NAME"
-  },
-  {
-      name: "PARK_TYPE_ID",
-      label: "PARK_TYPE_ID"
-  },
-  {
-      name: "PARK_TYPE_DESC",
-      label: "PARK_TYPE_DESC"
-  },
-  {
-      name: "CAPACITY_OF_PARK",
-      label: "CAPACITY_OF_PARK", 
-      type: "number",
-  },
-  {
-      name: "WORKING_TIME",
-      label: "WORKING_TIME"
-  },
-  {
-      name: "COUNTY_NAME",
-      label: "COUNTY_NAME"
-  },
-  {
-      name: "LONGITUDE",
-      label: "LONGITUDE", 
-      type: "number",
-  },
-  {
-      name: "LATITUDE",
-      label: "LATITUDE", 
-      type: "number",
-  },
-  ]
 
   
   const handleModalClickOpen = () => {
@@ -81,6 +40,7 @@ export default function NewParkingModal() {
   if(carParkState.message) {
     showSnackBar(carParkState.message, 'success');
     dispatch({ type: CLEAR_CAR_PARK_MESSAGE})
+    handleModalClose()
 }
 
 if(carParkState.error) {
@@ -107,6 +67,7 @@ const handleNewData = (data)=>{
 
         if('id' in authState.data) {
           dispatch(setNewCarPark(data, authState.data.id, navigate))
+          handleModalClose()
         }
     }else {
         showSnackBar("All fields are required", "error")
@@ -129,25 +90,26 @@ function showSnackBar(msg, variant = 'info'){
       <div >
             <ListItem button onClick={handleModalClickOpen} >
               <ListItemIcon>
-                <LocalParking />
+                <Add />
               </ListItemIcon>
-              <ListItemText primary={"New Parking"} />
+              <ListItemText primary={"Yeni nokta ekle"} />
             </ListItem>
         </div>
       <Dialog open={modalOpen} onClose={handleModalClose} maxWidth={"xs"}>
-        <DialogTitle>Add New Parking</DialogTitle>
+        <DialogTitle>Yeni nokta ekle</DialogTitle>
         <DialogContent>
             <MainForm 
-                Fields = {Fields}
+                Fields = {_Fields}
                 Header = {""}
                 SubHeader = {""}
                 handleData = {handleNewData}
                 loading = {carParkState.loading}
+                handleModalClose = {handleModalClose}
 
             />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose}>Close</Button>
+          <Button onClick={handleModalClose}>Kapat</Button>
         </DialogActions>
       </Dialog>
     </div>

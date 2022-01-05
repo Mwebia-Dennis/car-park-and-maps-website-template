@@ -101,7 +101,7 @@ export default function Map(props) {
                                 if(key === 'added_by'){
                                     popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+locs[i][key]['name'] +"</td></tr>"
                                 }else if (key === 'created_at' || key === 'updated_at') {
-                                    popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+new Date(locs[i][key]).toString() +"</td></tr>"
+                                    popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+new Date(locs[i][key]).toLocaleString("tr-TR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) +"</td></tr>"
                                 }else {
                                     popupContent += "<tr><td><strong>"+translate(key)+"</strong></td><td> "+locs[i][key] +"</td></tr>"
                                 }

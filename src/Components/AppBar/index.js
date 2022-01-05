@@ -15,7 +15,6 @@ import { LogoutRounded } from '@mui/icons-material';
 import { logOut } from '../../Store/reducers/auth/auth.actions';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import DropDown from './dropDown.js';
 import { getAllCarParks, searchCarParks } from '../../Store/reducers/carPark/carPark.actions.js';
 import { CircularProgress } from '@mui/material';
 
@@ -109,7 +108,7 @@ export default function PrimarySearchAppBar() {
         >
           <LogoutRounded />
         </IconButton>
-        <p>Logout</p>
+        <p>Çıkış yap</p>
       </MenuItem>
     </Menu>
   );
@@ -141,7 +140,7 @@ export default function PrimarySearchAppBar() {
         >
           <LogoutRounded />
         </IconButton>
-        <p>Logout</p>
+        <p>Çıkış yap</p>
       </MenuItem>
     </Menu>
   );
@@ -163,7 +162,7 @@ export default function PrimarySearchAppBar() {
           </IconButton>
           <Search  className={ classes.searchBar } onChange={handleSearchChange} >
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="ispark noktası ara.."
               inputProps={{ 'aria-label': 'search' }}
               className={classes.searchInput}
             />

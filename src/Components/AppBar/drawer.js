@@ -18,12 +18,12 @@ export default function TemporaryDrawer(props) {
     const classes = useStyles()
     const navList = [
       {
-        name: 'Dashboard',
+        name: 'Genel konum',
         url: '/',
         icon: <Timeline />
       },
       {
-        name: 'Car Park Listing',
+        name: 'Ispark listesi',
         url: '/park-listing',
         icon: <LocalParking />
       },

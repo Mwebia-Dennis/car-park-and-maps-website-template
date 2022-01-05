@@ -20,16 +20,16 @@ export default function SignUp() {
         
         {
             name: "NAME",
-            label: "NAME"
+            label: "isim"
         },
         {
             name: "EMAIL",
-            label: "EMAIL",
-            type: "email"
+            label: "e-posta", 
+            type: "email",
         },
         {
             name: "PASSWORD",
-            label: "PASSWORD", 
+            label: "Şifre", 
             type: "password",
         },
     ]
@@ -62,7 +62,7 @@ export default function SignUp() {
         ){
             dispatch(signUpUser(data, navigate))
         }else {
-            showSnackBar("All fields are required", "error")
+            showSnackBar("Form alanları doldurmak zorunludur", "error")
         }
 
     }
@@ -82,16 +82,16 @@ export default function SignUp() {
         <div className={classes.container}>
             <MainForm 
                 Fields = {Fields}
-                Header = {"Become A Member"}
-                SubHeader = {"Sign Up to continue"}
+                Header = {"bu kanala üye ol".toUpperCase()}
+                SubHeader = {"devam etmek için kaydolun"}
                 handleData = {handleSignUp}
                 loading = {authState.loading}
 
             />
             <div>
-                <Typography component="p" style={{textAlign: 'center'}}>Already A member?</Typography>
+                <Typography component="p" style={{textAlign: 'center'}}>Üyeliğiniz varmı?</Typography>
                 <Typography component="p" style={{textAlign: 'center'}}>
-                    <Link href="/auth/login">Login</Link>
+                    <Link href="/auth/login">Giriş yap</Link>
                 </Typography>
             </div>
         </div>

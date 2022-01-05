@@ -65,7 +65,7 @@ export default function MainForm(props) {
 
                 <Grid item xs={12} style={{margin: '10px'}}>
                     <Button variant="contained" size="small" type="submit" onClick={handleSubmit} > 
-                        {loading? <CircularProgress color="secondary" /> :"Submit"}
+                        {loading? <CircularProgress color="secondary" /> :"Ekle"}
                     </Button>
                 </Grid> 
                 

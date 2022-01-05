@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import { useDispatch,useSelector } from 'react-redux';
 import { deleteCarPark, getAllCarParks } from '../../Store/reducers/carPark/carPark.actions';
 import { Button, CircularProgress, Grid } from '@mui/material';
-import { getTableHeaders } from '../../util/Constants';
+import { getTableHeaders, getAllFields } from '../../util/Constants';
 import { styled } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,14 +18,11 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useStyles } from './style';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
 
 export default function ParkListing() {
 
     const classes = useStyles()
-    const [sort, setSort] = useState(getTableHeaders()[0])
+    const [sort, setSort] = useState("CREATED_AT")
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const dispatch = useDispatch()
@@ -97,7 +94,7 @@ export default function ParkListing() {
                                 <Grid item md={3}>
 
                                     <FormControl style={{marginRight: '20px',marginBottom: '20px',width: '140px'}}>
-                                        <InputLabel id="demo-simple-select-label">Order By</InputLabel>
+                                        <InputLabel id="demo-simple-select-label">Filtrele</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
@@ -106,13 +103,13 @@ export default function ParkListing() {
                                             onChange={handleSortChange}
                                             >
                                                 {
-                                                    getTableHeaders().map(item=><MenuItem value={item} key={item}>{item}</MenuItem>)
+                                                    getAllFields().map(item=><MenuItem value={item.name} key={item.name}>{item.label.toLowerCase()}</MenuItem>)
                                                 }
                                         </Select>
                                     </FormControl>
                                     
                                     <FormControl style={{  width: '140px'}}>
-                                        <InputLabel id="limit">Limit</InputLabel>
+                                        <InputLabel id="limit">Gosterim araligi</InputLabel>
                                         <Select
                                             labelId="limit"
                                             id="limit"
@@ -158,8 +155,8 @@ export default function ParkListing() {
                                     <TableCell align="right">{row.longitude}</TableCell>
                                     <TableCell align="right">{row.latitude}</TableCell>
                                     <TableCell align="right">{row.added_by.name}</TableCell>
-                                    <TableCell align="right">{new Date(row.created_at).toString()}</TableCell>
-                                    <TableCell align="right">{new Date(row.updated_at).toString()}</TableCell>
+                                    <TableCell align="right">{new Date(row.created_at).toLocaleString("tr-TR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</TableCell>
+                                    <TableCell align="right">{new Date(row.updated_at).toLocaleString("tr-TR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</TableCell>
                                     <TableCell align="right"><Button color="secondary" onClick={()=>handleDelete(row.id)}>silmek</Button>  </TableCell>
                                 </StyledTableRow >
                             )):<div>0 results found</div>}
