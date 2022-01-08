@@ -131,10 +131,10 @@ export default function ParkListing() {
                                 <TableRow>
                                     {
                                         getTableHeaders().map(item=>
-                                            <StyledTableCell key={item}>{item.toUpperCase()}</StyledTableCell>)
+                                            <StyledTableCell key={item}>{item.toLowerCase()}</StyledTableCell>)
                                     }
                                     
-                                    <StyledTableCell>{"eylem".toUpperCase()}</StyledTableCell>
+                                    <StyledTableCell>{"eylem".toLowerCase()}</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

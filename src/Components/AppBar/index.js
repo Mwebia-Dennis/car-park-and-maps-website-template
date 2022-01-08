@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -66,11 +66,13 @@ export default function PrimarySearchAppBar() {
 
     if(e.target.value !== '') {
       setQuery(e.target.value.toLowerCase())
+    }else {
+      dispatch(getAllCarParks())      
     }
 
   }
 
-  const handleSearchSubmit = (e)=>{
+  const handleSearchSubmit = ()=>{
 
     if(query !== '') {
       dispatch(searchCarParks(query))
@@ -78,6 +80,12 @@ export default function PrimarySearchAppBar() {
       dispatch(getAllCarParks())
     }
 
+  }
+
+  const handleKeyUpSearch = (e)=>{
+    if (e.key === 'Enter') {
+      handleSearchSubmit()
+    }
   }
 
 
@@ -160,7 +168,7 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Search  className={ classes.searchBar } onChange={handleSearchChange} >
+          <Search  className={ classes.searchBar } onChange={handleSearchChange} onKeyUp={handleKeyUpSearch} >
             <StyledInputBase
               placeholder="ispark noktası ara.."
               inputProps={{ 'aria-label': 'search' }}

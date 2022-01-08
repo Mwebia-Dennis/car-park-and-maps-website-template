@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { loadModules } from "esri-loader";
 import { ApiKey, MapInstance, translate } from '../../util/Constants';
+import logo from '../../images/logo.png'
 
 export default function Map(props) {
 
@@ -59,18 +60,23 @@ export default function Map(props) {
                 view.ui.add(zoom, {
                     'position': 'bottom-right'
                 })
-
-                for (let i = 0; i < locs.length; i++) {
+                
+                let i = 0
+                for (i = 0; i < locs.length; i++) {
                     
                     const point = new Point(parseFloat(locs[i]["longitude"]), parseFloat(locs[i]["latitude"]))
         
                     const symbol = {
-                        type: 'simple-marker',
-                        color : "red",
-                        outline: {
-                            color: "white", // white
-                            width: 1
-                        }
+                        // type: 'simple-marker',
+                        type: "picture-marker",
+                        url: logo,
+                        width: '50px',
+                        height: '50px',
+                        // color : "red",
+                        // outline: {
+                        //     color: "white", // white
+                        //     width: 1
+                        // }
                     }
                     // const symbol = new WebStyleSymbol({
                     //     name: "parking",
@@ -139,6 +145,11 @@ export default function Map(props) {
                     view.popup.autoOpenEnabled = true;
                     view.graphics.add(graphic);
             
+                }
+
+                if(i === 1) {
+                    view.center = [locs[0]["longitude"], locs[0]["latitude"]]
+                    view.zoom = 18
                 }
                 
                 MapInstance.push(view)
